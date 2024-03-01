@@ -5,6 +5,10 @@ pipeline {
       AWS_CREDENTIALS_FILE = credentials('aws_credentials_file')
     }
 
+    tools {
+      terraform 'terraform'
+    }
+
     stages {
       
       stage('Checkout') {
@@ -19,7 +23,7 @@ pipeline {
             // sh "mkdir -p ~/.aws/credentials"
             // sh "cp $AWS_CREDENTIALS_FILE ~/.aws/credentials"
             withCredentials([file(credentialsId: 'aws_credentials_file', variable: 'AWS_CREDENTIALS_FILE')]) {
-              sh 'terraform init'
+              sh "${tool 'terraform'}/terraform init"
             }
           }
         }
@@ -28,7 +32,8 @@ pipeline {
       stage('Terraform Plan') {
         steps {
           script {
-              sh 'terraform plan -out=tfplan'
+            sh 'terraform plan -out=tfplan'
+            sh "${tool 'terraform'}/terraform plan -out=tfplan"
           }
         }
       }
