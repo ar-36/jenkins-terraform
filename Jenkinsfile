@@ -16,6 +16,7 @@ pipeline {
       stage('Terraform Init') {
         steps {
           script {
+            sh "mkdir -p ~/.aws/credentials"
             sh "cp $AWS_CREDENTIALS_FILE ~/.aws/credentials"
             sh 'terraform init'
           }
