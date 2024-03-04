@@ -53,7 +53,7 @@ pipeline {
         steps {
           script {
             input "Do you want to apply the Terraform changes?"
-            sh "terraform destroy -auto-approve"
+            sh "terraform apply -auto-approve tfplan"
           }
         }
       }
