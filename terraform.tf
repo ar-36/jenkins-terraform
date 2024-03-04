@@ -8,4 +8,11 @@ terraform {
     region         = "us-east-1"
     key            = "state/dev/terraform.tfstate"
   }
+
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.39.0"  # Specify the desired version or a version constraint
+    }
+  }
 }
