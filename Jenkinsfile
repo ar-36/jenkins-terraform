@@ -17,24 +17,28 @@ pipeline {
         }
       }
 
-      stage('Terraform Init') {
+      stage('Init') {
         steps {
           script {
-            sh "terraform --version"
             sh "terraform init"
-            // withCredentials([file(credentialsId: 'aws_credentials_file', variable: 'AWS_CREDENTIALS_FILE')]) {
-            //   sh "${tool 'terraform'}/terraform init"
-            // }
           }
         }
       }
 
-      // stage('Terraform Plan') {
-      //   steps {
-      //     script {
-      //       sh "${tool 'terraform'}/terraform plan -out=tfplan"
-      //     }
-      //   }
-      // }
+      stage('Plan') {
+        steps {
+          script {
+            sh "terraform plan"
+          }
+        }
+      }
+      
+      stage('Apply') {
+        steps {
+          script {
+            sh "terraform apply -auto-approve"
+          }
+        }
+      }
     }
 }
