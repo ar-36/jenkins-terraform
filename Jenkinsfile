@@ -1,13 +1,13 @@
 pipeline {
     agent any
     
-    environment {
-      AWS_CREDENTIALS_FILE = credentials('aws_credentials_file')
-    }
+    // environment {
+    //   AWS_CREDENTIALS_FILE = credentials('aws_credentials_file')
+    // }
 
-    tools {
-      terraform 'terraform'
-    }
+    // tools {
+    //   terraform 'terraform'
+    // }
 
     stages {
       
@@ -20,19 +20,20 @@ pipeline {
       stage('Terraform Init') {
         steps {
           script {
-            withCredentials([file(credentialsId: 'aws_credentials_file', variable: 'AWS_CREDENTIALS_FILE')]) {
-              sh "${tool 'terraform'}/terraform init"
-            }
+            sh "terraform init"
+            // withCredentials([file(credentialsId: 'aws_credentials_file', variable: 'AWS_CREDENTIALS_FILE')]) {
+            //   sh "${tool 'terraform'}/terraform init"
+            // }
           }
         }
       }
 
-      stage('Terraform Plan') {
-        steps {
-          script {
-            sh "${tool 'terraform'}/terraform plan -out=tfplan"
-          }
-        }
-      }
+      // stage('Terraform Plan') {
+      //   steps {
+      //     script {
+      //       sh "${tool 'terraform'}/terraform plan -out=tfplan"
+      //     }
+      //   }
+      // }
     }
 }
