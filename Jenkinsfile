@@ -1,14 +1,6 @@
 pipeline {
     agent any
     
-    // environment {
-    //   AWS_CREDENTIALS_FILE = credentials('aws_credentials_file')
-    // }
-
-    // tools {
-    //   Terraform 'Terraform'
-    // }
-
     stages {
       
       stage('Checkout') {
@@ -46,6 +38,7 @@ pipeline {
           script {
             input "Do you want to apply the Terraform changes?"
             sh "terraform apply -auto-approve tfplan"
+            sh "ls"
           }
         }
       }
