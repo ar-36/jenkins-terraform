@@ -25,6 +25,14 @@ pipeline {
         }
       }
 
+      stage('Validate') {
+        steps {
+          script {
+            sh "terraform validate"
+          }
+        }
+      }
+      
       stage('Plan') {
         steps {
           script {
@@ -36,7 +44,8 @@ pipeline {
       stage('Apply') {
         steps {
           script {
-            sh "terraform apply -auto-approve"
+            input "Do you want to apply the Terraform changes?"
+            sh "terraform apply -auto-approve tfplan"
           }
         }
       }
