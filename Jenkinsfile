@@ -40,5 +40,12 @@ pipeline {
           }
         }
       }
+
+      stage('Destroy') {
+        steps {
+          input 'Destroy Resources?'
+          sh "terraform destroy -auto-approve"
+        }
+      }
     }
 }
