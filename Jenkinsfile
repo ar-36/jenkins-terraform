@@ -28,7 +28,7 @@ pipeline {
       stage('Plan') {
         steps {
           script {
-            sh "terraform plan"
+            sh "terraform plan -out=tfplan"
           }
         }
       }
@@ -41,11 +41,11 @@ pipeline {
         }
       }
 
-      stage('Destroy') {
-        steps {
-          input 'Destroy Resources?'
-          sh "terraform destroy -auto-approve"
-        }
-      }
+      // stage('Destroy') {
+      //   steps {
+      //     input 'Destroy Resources?'
+      //     sh "terraform destroy -auto-approve"
+      //   }
+      // }
     }
 }
