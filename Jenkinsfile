@@ -17,10 +17,26 @@ pipeline {
         }
       }
 
+      stage('Lint') {
+        steps {
+          script {
+            sh "tflint"
+          }
+        }
+      }
+
       stage('Validate') {
         steps {
           script {
             sh "terraform validate"
+          }
+        }
+      }
+
+      stage('TFsec') {
+        steps {
+          script {
+            sh "tfsec ."
           }
         }
       }
@@ -37,7 +53,7 @@ pipeline {
         steps {
           script {
             input "Do you want to apply the Terraform changes?"
-            sh "terraform destroy -auto-approve"
+            sh "terraform apply -auto-approve tfplan"
           }
         }
       }
